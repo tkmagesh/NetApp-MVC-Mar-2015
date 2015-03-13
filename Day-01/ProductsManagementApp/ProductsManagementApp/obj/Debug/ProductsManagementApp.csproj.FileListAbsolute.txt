@@ -1,0 +1,5 @@
+D:\Training\NetApp-MVC-Mar-2015\Day-01\ProductsManagementApp\ProductsManagementApp\obj\Debug\ProductsManagementApp.csprojResolveAssemblyReference.cache
+D:\Training\NetApp-MVC-Mar-2015\Day-01\ProductsManagementApp\ProductsManagementApp\bin\Debug\ProductsManagementApp.exe
+D:\Training\NetApp-MVC-Mar-2015\Day-01\ProductsManagementApp\ProductsManagementApp\bin\Debug\ProductsManagementApp.pdb
+D:\Training\NetApp-MVC-Mar-2015\Day-01\ProductsManagementApp\ProductsManagementApp\obj\Debug\ProductsManagementApp.exe
+D:\Training\NetApp-MVC-Mar-2015\Day-01\ProductsManagementApp\ProductsManagementApp\obj\Debug\ProductsManagementApp.pdb
