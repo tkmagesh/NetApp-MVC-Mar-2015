@@ -3,26 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
     <script>
-    function printName(){
-        
-       var name = document.body.firstElementChild.value;
-       var divResult = document.getElementById("divResult");
-       divResult.textContent = name;
-    }
-        
-    function initialize(){
-        var btnAdd = document.getElementById("btnAdd");
-        btnAdd.addEventListener("click", printName);
-    }
-        
-    window.addEventListener("DOMContentLoaded", initialize);
-   
+        window.addEventListener("DOMContentLoaded", init);
+        function init(){
+            document.getElementById("btnCalculate").addEventListener("click", onBtnCalculateClick);
+        }
+        function onBtnCalculateClick(){
+            var txtNumber1 = document.getElementById("txtNumber1"),
+                txtNumber2 = document.getElementById("txtNumber2"),
+                operation = document.getElementById("selectOperation");
+            
+            var v1 = parseInt(txtNumber1.value),
+                v2 = parseInt(txtNumber2.value),
+                result = 0;
+            
+            switch (operation.value){
+                case "add" : 
+                    result = v1 + v2;
+                    break;
+                case "subtract" :
+                    result = v1 - v2;
+                    break;
+                case "divide" :
+                    result = v1 / v2;
+                    break;
+                case "multiply" :
+                    result = v1 * v2;
+                    break;
+                default : 
+                    result = "unknown operation";
+                    break;
+            }
+            document.getElementById("divResult").textContent = result;
+        }
     </script>
 </head>
 <body>
-    <input type="text"  id="txtNumber1">
-    <input type="text"  id="txtNumber2">
+    <input type="text"  id="txtNumber1" class="numberBox">
+    <input type="text"  id="txtNumber2" class="numberBox">
     <select name="" id="selectOperation">
         <option value="add">add</option>
         <option value="subtract">subtract</option>
