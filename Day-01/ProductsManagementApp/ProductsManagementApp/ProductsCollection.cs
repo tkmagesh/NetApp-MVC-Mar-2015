@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace ProductsManagementApp
 {
-    public class ProductsCollection
+    public class MyCollection<T> : IEnumerable, IEnumerable<T>, IEnumerator<T>, IEnumerator
     {
         ArrayList list = new ArrayList();
 
@@ -11,45 +14,42 @@ namespace ProductsManagementApp
             get { return list.Count; }
         }
 
-        public void Add(Product product)
+        public void Add(T item)
         {
-            list.Add(product);
+            list.Add(item);
         }
 
-        public Product Get(int index)
+        public T Get(int index)
         {
-            return (Product) list[index];
+            return (T) list[index];
         }
 
-        public void Sort(IProductCompare productComparer)
+      
+        /*public int Min(FieldSelectorDelegate<T, int> fsd)
         {
-            for(var i=0; i<list.Count-1; i++)
-                for (var j = i + 1; j < list.Count; j++)
-                {
-                    var left = (Product) list[i];
-                    var right = (Product) list[j];
-                    if (productComparer.Compare(left, right) > 0)
-                    {
-                        list[i] = list[j];
-                        list[j] = left;
-                    }
-                }
+            var result = int.MaxValue;
+            foreach (var item in list)
+            {
+                var p = (T) item;
+                var fieldValue = fsd(p);
+                if (result > fieldValue)
+                    result = fieldValue;
+            }
+            return result;
         }
 
-        public void Sort(CompareProductDelegate compareProduct)
+        public decimal Min(FieldSelectorDelegate<T, decimal> dsd)
         {
-            for (var i = 0; i < list.Count - 1; i++)
-                for (var j = i + 1; j < list.Count; j++)
-                {
-                    var left = (Product)list[i];
-                    var right = (Product)list[j];
-                    if (compareProduct(left, right) > 0)
-                    {
-                        list[i] = list[j];
-                        list[j] = left;
-                    }
-                }
-        }
+            var result = decimal.MaxValue;
+            foreach (var item in list)
+            {
+                var p = (T)item;
+                var fieldValue = dsd(p);
+                if (result > fieldValue)
+                    result = fieldValue;
+            }
+            return result;
+        }*/
 
         //Filter
         //Min (int)
@@ -59,17 +59,64 @@ namespace ProductsManagementApp
         //GroupBy (int)
         //GroupBy (string)
 
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this;
+        }
+
+        private int _index = -1;
+        public void Dispose()
+        {
+            
+        }
+
+        public bool MoveNext()
+        {
+            ++_index;
+            if (_index < list.Count) return true;
+            Reset();
+            return false;
+        }
+
+        public void Reset()
+        {
+            _index = -1;
+        }
+
+        public T Current
+        {
+            get { return (T) list[_index]; }
+        }
+
+        object IEnumerator.Current
+        {
+            get { return Current; }
+        }
     }
 
-    public delegate int CompareProductDelegate(Product p1, Product p2);
+    public delegate TResult FieldSelectorDelegate<in T, out TResult>(T item)  where TResult : IComparable;
     
-    public interface IProductCompare
+    public delegate int IntFieldSelectorDelegate<T>(T p);
+
+    public delegate decimal DecimalFieldSelectorDelegate<T>(T p);
+
+    //public delegate int CompareProductDelegate(Product p1, Product p2);
+    public delegate int CompareItemDelegate<T>(T p1, T p2);
+
+    public delegate bool FilterItemDelegate<T>(T p);
+
+    public interface IItemCompare<T>
     {
-        int Compare(Product p1, Product p2);
+        int Compare(T p1, T p2);
         
     }
 
-    public class ProductComparerById : IProductCompare
+    public class ProductComparerById : IItemCompare<Product>
     {
         public int Compare(Product p1, Product p2)
         {
@@ -78,7 +125,7 @@ namespace ProductsManagementApp
             return 0;
         }
     }
-    public class ProductComparerByCost : IProductCompare
+    public class ProductComparerByCost : IItemCompare<Product>
     {
         public int Compare(Product p1, Product p2)
         {
@@ -87,7 +134,7 @@ namespace ProductsManagementApp
             return 0;
         }
     }
-    public class ProductComparerByUnits : IProductCompare
+    public class ProductComparerByUnits : IItemCompare<Product>
     {
         public int Compare(Product p1, Product p2)
         {
