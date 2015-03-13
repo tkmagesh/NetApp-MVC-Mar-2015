@@ -33,6 +33,30 @@ namespace ProductsManagementApp
 
             var x = productsCollection.Filter(p => p.Cost > 50).Min(p => p.Cost);
             x = MyUtils.Min(MyUtils.Filter(productsCollection, p => p.Cost > 50), p => p.Cost);
+
+            var productsByCategory = productsCollection.GroupBy(p => p.Category);
+            foreach (var groupedProduct in productsByCategory)
+            {
+                Console.WriteLine("Category = {0}", groupedProduct.Key);
+                foreach (var product in groupedProduct.Value)
+                {
+                    Console.WriteLine(product.FormatForPrint());
+                }
+                Console.WriteLine();
+            }
+            
+            Console.WriteLine();
+
+            var productsByCost = productsCollection.GroupBy(p => p.Cost > 50 ? "costly" : "affordable");
+            foreach (var groupedProduct in productsByCost)
+            {
+                Console.WriteLine("Category = {0}", groupedProduct.Key);
+                foreach (var product in groupedProduct.Value)
+                {
+                    Console.WriteLine(product.FormatForPrint());
+                }
+                Console.WriteLine();
+            }
             Console.ReadLine();
         }
 

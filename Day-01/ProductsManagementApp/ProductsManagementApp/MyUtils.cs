@@ -99,5 +99,18 @@ namespace ProductsManagementApp
             return result;
         }
 
+        public static IDictionary<TKey, IEnumerable<T>> GroupBy<T, TKey>(this IEnumerable<T> list,
+            Func<T, TKey> keySelector)
+        {
+            var result = new Dictionary<TKey, IEnumerable<T>>();
+            foreach (var item in list)
+            {
+                var key = keySelector(item);
+                if (!result.ContainsKey(key))
+                    result.Add(key, new List<T>());
+                ((List<T>)result[key]).Add(item);
+            }
+            return result;
+        } 
     }
 }
