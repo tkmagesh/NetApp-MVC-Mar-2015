@@ -3,11 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Calculator</title>
+    <script>
+    function printName(){
+        
+       var name = document.body.firstElementChild.value;
+       var divResult = document.getElementById("divResult");
+       divResult.textContent = name;
+    }
+        
+    function initialize(){
+        var btnAdd = document.getElementById("btnAdd");
+        btnAdd.addEventListener("click", printName);
+    }
+        
+    window.addEventListener("DOMContentLoaded", initialize);
+   
+    </script>
 </head>
 <body>
     <input type="text"  id="txtNumber1">
     <input type="text"  id="txtNumber2">
-    <input type="button" value="Add" id="btnAdd">
-    <div id="divResult"></div>
+    <select name="" id="selectOperation">
+        <option value="add">add</option>
+        <option value="subtract">subtract</option>
+        <option value="multiply">multiply</option>
+        <option value="divide">divide</option>
+    </select>
+    <input type="button" value="Calculate" id="btnCalculate">
+    <div id="divResult">[result]</div>
+    
 </body>
 </html>
