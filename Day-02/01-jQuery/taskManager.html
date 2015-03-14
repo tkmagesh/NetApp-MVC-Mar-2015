@@ -25,35 +25,48 @@
             font-weight: bold;
         }
     </style>
+    <script src="jquery-1.11.2.js"></script>
     <script>
-        window.addEventListener("DOMContentLoaded", init);
-        function init(){
-            document.getElementById("btnAdd").addEventListener("click", onBtnAddClick);
-            document.getElementById("btnRemoveCompleted").addEventListener("click", onBtnRemoveCompletedClick);
-        }
+
+        $(function(){
+            $("#btnAdd").click(onBtnAddClick);
+           $("#olTaskList").on("click", "li", onTaskItemClick); $("#btnRemoveCompleted").click(onBtnRemoveCompletedClick);
+        });
         function onBtnAddClick(){
-            var txtTask = document.getElementById("txtTask");
-            var taskName = txtTask.value;
-            var taskList = document.getElementById("olTaskList");
-            
-            var newTaskItem = document.createElement("li");
-            newTaskItem.textContent = taskName;
-            newTaskItem.addEventListener("click", onTaskItemClick);
-            taskList.appendChild(newTaskItem);
-            
-           /* var newTaskItem = "<li>" + taskName + "</li>"
-            taskList.innerHTML += newTaskItem;*/
+            $("<li></li>")
+                .text($("#txtTask").val())
+                .appendTo("#olTaskList")
         }
         function onTaskItemClick(){
-            console.dir(this);
-            this.classList.toggle("completed");
+            $(this).toggleClass("completed");
         }
 
         function onBtnRemoveCompletedClick(){
-            var taskList = document.getElementById("olTaskList");
+
+            $("#olTaskList > li.completed").remove();
+
+             /*$("#olTaskList")
+                .children("li.completed")
+                .remove();*/
+
+           /* $("#olTaskList")
+                .children("li.completed")
+                .each(function(index, elem){
+                        $elem.remove();
+                });*/
+
+            /*$("#olTaskList")
+                .children("li")
+                .each(function(index, elem){
+                    var $elem = $(elem);
+                    if ($elem.hasClass("completed"))
+                        $elem.remove();
+                });*/
+
+            /*var taskList = document.getElementById("olTaskList");
             for(var i=taskList.childElementCount-1; i>=0; i--)
                 if (taskList.children[i].classList.contains("completed"))
-                    taskList.children[i].remove();
+                    taskList.children[i].remove();*/
         }
     </script>
 </head>
@@ -66,8 +79,8 @@
         <input type="button" value="Remove Completed" id="btnRemoveCompleted">
         <ol id="olTaskList">
         </ol>
-        <div id="divMessage"></div>    
+        <div id="divMessage"></div>
     </div>
-    
+
 </body>
 </html>

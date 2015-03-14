@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Greeting App</title>
+    <script src="jquery-1.11.2.js"></script>
+    <script>
+    (function(){
+        function greet(){
+           var firstName = jQuery("#txtFirstName").val(),
+               lastName = jQuery("#txtLastName").val();
+           var msg = "Hi " + firstName + " " + lastName + ", Have a nice day!!";
+           jQuery("#divMessage").html(msg);
+        }
+        jQuery(function(){
+            jQuery("#btnGreet").click(greet);
+        });
+    })();
+
+    //Immediately Invoked Function Expression
+
+
+
+      /*  $(function(){
+            $("#btnGreet").click( function(){
+               var firstName = $("#txtFirstName").val(),
+                   lastName = $("#txtLastName").val();
+               var msg = "Hi " + firstName + " " + lastName + ", Have a nice day!!";
+               $("#divMessage").html(msg);
+            });
+        });
+        */
+
+    </script>
+</head>
+<body>
+    <label for="txtLastName" accesskey="l">Name :</label>
+    <input type="text" name="" id="txtFirstName">
+    <input type="text" name="" id="txtLastName">
+    <input type="button" value="Greet" id="btnGreet">
+    <div id="divMessage"></div>
+</body>
+</html>
