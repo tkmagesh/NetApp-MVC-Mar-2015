@@ -27,15 +27,44 @@
     </style>
     <script src="jquery-1.11.2.js"></script>
     <script>
-
+        var $txtTask = null;
         $(function(){
             $("#btnAdd").click(onBtnAddClick);
            $("#olTaskList").on("click", "li", onTaskItemClick); $("#btnRemoveCompleted").click(onBtnRemoveCompletedClick);
+            $("#txtTask").keyup(filterList);
+            loadData();
+            $txtTask = $("#txtTask");
         });
-        function onBtnAddClick(){
+        function filterList(){
+            var filterText = $txtTask.val();
+            $("li").each(function(index, elem){
+                var $elem = $(elem);
+                if ($elem.text().startsWith(filterText)){
+                    $elem.show();
+                } else {
+                    $elem.hide();
+                }
+            });
+        }
+        function loadData(){
+            $.ajax({
+                url : "tasksData.json",
+                method : "GET",
+                dataType : "json",
+                contentType : "application/json",
+                success : function(response){
+                    $(response.tasks).each(addToList);
+                }
+            });
+        }
+        function addToList(index, obj){
             $("<li></li>")
-                .text($("#txtTask").val())
+                .text(obj.name)
+                .addClass(obj.isCompleted ? "completed" : "")
                 .appendTo("#olTaskList")
+        }
+        function onBtnAddClick(){
+            addToList({name : $("#txtTask").val()});
         }
         function onTaskItemClick(){
             $(this).toggleClass("completed");
