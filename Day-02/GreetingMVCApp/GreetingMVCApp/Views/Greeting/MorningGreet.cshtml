@@ -1,0 +1,23 @@
+﻿
+@model dynamic
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>title</title>
+    </head>
+    <body style="background-color: lightblue">
+        <div>
+            @ViewBag.msg
+        </div>
+        @for (var i = 0; i < 10; i++)
+        {
+            <div>generated using for - iteration index = @i</div>
+        }
+    </body>
+</html> 

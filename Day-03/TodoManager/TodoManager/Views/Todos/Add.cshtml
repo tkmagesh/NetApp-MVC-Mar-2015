@@ -1,0 +1,27 @@
+﻿@model string
+@{
+  
+    Layout = "~/Views/Shared/layout.cshtml";
+}
+
+
+@section content
+{
+    <style>
+        .error {
+            color: red;
+            font-style: italic;
+        }
+    </style>
+    <form method="POST">
+        <label for="txtTodo" >Name :</label>
+        <input type="text" id="txtTodo" name="newTodo" value="@Model"/>
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <span class="error">@ViewBag.ErrorMessage</span>
+        }
+        <input type="submit" value="Save"/>
+    </form>
+    
+
+}

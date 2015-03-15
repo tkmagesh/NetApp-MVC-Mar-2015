@@ -1,0 +1,7 @@
+D:\Training\NetApp-MVC-Mar-2015\Day-02\GreetingConsoleApp\GreetingConsoleAppTest\bin\Debug\GreetingConsoleAppTest.dll
+D:\Training\NetApp-MVC-Mar-2015\Day-02\GreetingConsoleApp\GreetingConsoleAppTest\bin\Debug\GreetingConsoleAppTest.pdb
+D:\Training\NetApp-MVC-Mar-2015\Day-02\GreetingConsoleApp\GreetingConsoleAppTest\bin\Debug\GreetingConsoleApp.exe
+D:\Training\NetApp-MVC-Mar-2015\Day-02\GreetingConsoleApp\GreetingConsoleAppTest\bin\Debug\GreetingConsoleApp.pdb
+D:\Training\NetApp-MVC-Mar-2015\Day-02\GreetingConsoleApp\GreetingConsoleAppTest\obj\Debug\GreetingConsoleAppTest.csprojResolveAssemblyReference.cache
+D:\Training\NetApp-MVC-Mar-2015\Day-02\GreetingConsoleApp\GreetingConsoleAppTest\obj\Debug\GreetingConsoleAppTest.dll
+D:\Training\NetApp-MVC-Mar-2015\Day-02\GreetingConsoleApp\GreetingConsoleAppTest\obj\Debug\GreetingConsoleAppTest.pdb

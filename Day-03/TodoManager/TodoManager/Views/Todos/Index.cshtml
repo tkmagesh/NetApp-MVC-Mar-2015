@@ -1,0 +1,16 @@
+﻿@model IEnumerable<string>
+
+@{
+    Layout = "~/Views/shared/layout.cshtml";
+}
+
+@section content{
+
+    <ol>
+        @foreach (var item in Model)
+        {
+            <li>@item</li>
+        }
+    </ol>
+}
+        
