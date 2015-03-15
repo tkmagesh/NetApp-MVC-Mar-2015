@@ -1,0 +1,62 @@
+﻿@using TodoMVCApp2.Models
+@model IEnumerable<TodoMVCApp2.Models.Todo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section style
+{
+    <style>
+        .todo{
+            border: 2px double;
+            
+            margin: 2px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .notCompleted {
+            border-color: blue;
+            background: -webkit-linear-gradient(top, white 0%, lightblue 100%);
+        }
+        .completed {
+            border-color: red;
+            background: -webkit-linear-gradient(top, white 0%, lightpink 100%);
+        }
+
+    </style>
+}
+<h2>Index</h2>
+@{
+    Html.RenderPartial("_Create", new Todo());
+}
+<div id="todoList">
+    @foreach (var item in Model) {
+   Html.RenderPartial("_DisplayTodo", item);
+}    
+</div>
+
+@section scripts
+{
+    <script>
+        $(".btnDelete").click(function() {
+            var id = $(this).attr("todo-id");
+            $.ajax({
+                type: "POST",
+                url: "/Todo/Delete",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify({id : id}),
+                success: function (response) {
+                    console.log(response);
+                    $("#todo-" + id).fadeOut(500, function() {
+                        $(this).remove();
+                    });
+                }
+            });
+        })
+    </script>
+}
+
+

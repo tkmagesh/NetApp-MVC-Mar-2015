@@ -17,37 +17,36 @@
         .field label {
             display: block;
         }
+        .input-validation-error {
+            border: 1px solid red;
+            background-color: lightpink;
+        }
     </style>
 }
 
 @section content
 {
     
-    <form method="POST">
+    @using(Html.BeginForm())
+    {
         <div class="field">
             <label for="txtTodo" >Title :</label>
-            <input type="text" id="txtTodo" name="Title" value="@Model.Title"/>
-            @if (errorMessages.ContainsKey("Title"))
-            {
-                <span class="error">@errorMessages["Title"]</span>
-            }
+            @Html.TextBoxFor(m => m.Title)
+            @Html.ValidationMessageFor(m => m.Title)    
         </div>
         <div class="field">
             <label for="txtTodo" >Description :</label>
-            <textarea rows="10" cols="30" name="Description">@Model.Description</textarea>
+            @Html.TextAreaFor(m => m.Description, new {rows = 10, cols = "40"})
 
         </div>
         <div class="field">
             <label for="txtTodo" >Target Date :</label>
-            <input type="date" id="txtTodo" name="TargetDate" value="@Model.TargetDate.ToString("yyyy-MM-dd")"/>
-            @if (errorMessages.ContainsKey("TargetDate"))
-            {
-                <span class="error">@errorMessages["TargetDate"]</span>
-            }
+            @Html.TextBoxFor(m => m.TargetDate, new {type = "date"})
+            @Html.ValidationMessageFor(m => m.TargetDate)
         </div>
 
         <input type="submit" value="Save"/>
-    </form>
+    }
     
 
 }

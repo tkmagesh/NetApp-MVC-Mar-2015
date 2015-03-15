@@ -32,11 +32,9 @@ namespace TodoManager.Controllers
         [HttpPost]
         public ActionResult Add(Todo todo)
         {
-            var errorMessages = Todo.Validate(todo);
-            if (errorMessages.Any())
+            if (!this.ModelState.IsValid)
             {
-                ViewBag.ErrorMessages = errorMessages;
-                return View(model: todo);
+                return View(model: todo);   
             }
             todo.Id = TodoList.Max(td => td.Id) + 1;
             TodoList.Add(todo);

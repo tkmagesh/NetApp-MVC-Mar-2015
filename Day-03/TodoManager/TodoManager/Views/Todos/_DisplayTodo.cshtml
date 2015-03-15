@@ -1,0 +1,10 @@
+﻿@model TodoManager.Models.Todo
+<div class="todo @(Model.IsCompleted ? "completed" : "notCompleted")" >
+                <h3>@Model.Title</h3>
+                <div>@Model.Description</div>
+                <div>Target Date : @Model.TargetDate.ToString("d")</div>
+                @if (!Model.IsCompleted)
+                {
+                    <input type="button" name="name" value="Completed" />
+                }
+            </div>

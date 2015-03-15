@@ -1,0 +1,17 @@
+﻿@model TodoMVCApp2.Models.Todo
+
+<div class="todo @(Model.IsCompleted ? "completed" : "notCompleted")" id="todo-@Model.Id">
+                <h3>@Model.Title</h3>
+                <div>@Model.Description</div>
+                <div>Target Date : @Model.TargetDate.ToString("d")</div>
+                @if (!Model.IsCompleted)
+                {
+                    <input type="button" name="name" value="Completed" />
+                }
+    <div>
+         @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=Model.Id }) |
+            <input type="button" class="btnDelete" name="btnDelete" value="Delete" todo-id="@Model.Id" />
+    </div>
+            </div>
+
