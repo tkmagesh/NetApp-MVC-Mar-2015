@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TodoManager.Models;
 
 namespace TodoManager.Controllers
 {
@@ -10,10 +11,10 @@ namespace TodoManager.Controllers
     {
         //
         // GET: /Todos/
-        public static List<string> TodoList = new List<string>{
-            "Watch a Movie",
-            "Fix a bug",
-            "Create a bug"
+        public static List<Todo> TodoList = new List<Todo>{
+           new Todo{ Id=1, Title = "Watch a movie", Description = "Steam off the week's pressure", IsCompleted = false, TargetDate = new DateTime(2015,3,16)},
+           new Todo{ Id=2, Title = "Fix a bug", Description = "Appraisal is nearing", IsCompleted = false, TargetDate = new DateTime(2015,3,17)},
+           new Todo{ Id=3, Title = "Create a bug", Description = "I dont like the client", IsCompleted = true, TargetDate = new DateTime(2015,3,13)},
         };
 
         public ViewResult Index()
@@ -24,19 +25,22 @@ namespace TodoManager.Controllers
         [HttpGet]
         public ViewResult Add()
         {
-            return View();
+
+            return View(new Todo(){TargetDate = DateTime.Now.AddDays(1)});
         }
 
         [HttpPost]
-        public ActionResult Add(string newToDo)
+        public ActionResult Add(Todo todo)
         {
-            if (newToDo.Length > 20)
+            var errorMessages = Todo.Validate(todo);
+            if (errorMessages.Any())
             {
-                TodoList.Add(newToDo);
-                return RedirectToAction("Index");
+                ViewBag.ErrorMessages = errorMessages;
+                return View(model: todo);
             }
-            ViewBag.ErrorMessage = "Invalid Name";
-            return View(model: newToDo);
+            todo.Id = TodoList.Max(td => td.Id) + 1;
+            TodoList.Add(todo);
+            return RedirectToAction("Index");
         }
 
     }

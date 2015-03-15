@@ -1,25 +1,51 @@
-﻿@model string
+﻿@using System.Web.UI.WebControls
+@model TodoManager.Models.Todo
 @{
   
     Layout = "~/Views/Shared/layout.cshtml";
+    Dictionary<string, string> errorMessages = ViewBag.ErrorMessages ?? new Dictionary<string, string>(); 
 }
 
 
-@section content
+@section head
 {
     <style>
         .error {
             color: red;
             font-style: italic;
         }
-    </style>
-    <form method="POST">
-        <label for="txtTodo" >Name :</label>
-        <input type="text" id="txtTodo" name="newTodo" value="@Model"/>
-        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
-        {
-            <span class="error">@ViewBag.ErrorMessage</span>
+        .field label {
+            display: block;
         }
+    </style>
+}
+
+@section content
+{
+    
+    <form method="POST">
+        <div class="field">
+            <label for="txtTodo" >Title :</label>
+            <input type="text" id="txtTodo" name="Title" value="@Model.Title"/>
+            @if (errorMessages.ContainsKey("Title"))
+            {
+                <span class="error">@errorMessages["Title"]</span>
+            }
+        </div>
+        <div class="field">
+            <label for="txtTodo" >Description :</label>
+            <textarea rows="10" cols="30" name="Description">@Model.Description</textarea>
+
+        </div>
+        <div class="field">
+            <label for="txtTodo" >Target Date :</label>
+            <input type="date" id="txtTodo" name="TargetDate" value="@Model.TargetDate.ToString("yyyy-MM-dd")"/>
+            @if (errorMessages.ContainsKey("TargetDate"))
+            {
+                <span class="error">@errorMessages["TargetDate"]</span>
+            }
+        </div>
+
         <input type="submit" value="Save"/>
     </form>
     

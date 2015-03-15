@@ -1,15 +1,43 @@
-﻿@model IEnumerable<string>
+﻿@model IEnumerable<TodoManager.Models.Todo>
 
 @{
     Layout = "~/Views/shared/layout.cshtml";
 }
 
+@section head
+{
+    <style>
+        .todo{
+            border: 2px double;
+            
+            margin: 2px;
+            padding: 5px;
+        }
+        .notCompleted {
+            border-color: blue;
+            background: -webkit-linear-gradient(top, white 0%, lightblue 100%);
+        }
+        .completed {
+            border-color: red;
+            background: -webkit-linear-gradient(top, white 0%, lightpink 100%);
+        }
+
+    </style>
+}
 @section content{
 
     <ol>
         @foreach (var item in Model)
         {
-            <li>@item</li>
+            <div class="todo @(item.IsCompleted ? "completed" : "notCompleted")" >
+                <h3>@item.Title</h3>
+                <div>@item.Description</div>
+                <div>Target Date : @item.TargetDate.ToString("d")</div>
+                @if (!item.IsCompleted)
+                {
+                    <input type="button" name="name" value="Completed" />
+                }
+            </div>
         }
     </ol>
 }
